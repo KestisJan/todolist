@@ -39,26 +39,29 @@
                                     </a>
                                 </div>
                                 <div class="block bg-white overflow-hidden border-3 h-full">
-                                    <div class="p-4" style="
-                                        @if($task->status == 'in_progress') border: 3px solid #ADC5CF; background-color:#FEFEDF; @endif
-                                        @if($task->status == 'completed') border: 2px solid green; @endif
-                                    ">
-                                        <div id="descriptions-container" class="mb-2 text-center">
-                                            <p class="text-md text-justify text-xl">
-                                                Description: {{ $task->description }}
-                                            </p>
-                                            @if($task->status === 'in_progress')
+                                    <form action="{{ route('sms.send-delayed', ['taskId' => $task->id])  }}" method="GET">
+                                        @csrf
+                                        <div class="p-4" style="
+                                            @if($task->status == 'in_progress') border: 3px solid #ADC5CF; background-color:#FEFEDF; @endif
+                                            @if($task->status == 'completed') border: 2px solid green; @endif
+                                        ">
+                                            <div id="descriptions-container" class="mb-2 text-center">
                                                 <p class="text-md text-justify text-xl">
-                                                    Status: In Progress
+                                                    Description: {{ $task->description }}
                                                 </p>
-                                            @elseif($task->status === 'completed')
-                                                <p class="text-md text-justify text-xl" style="color: green;">
-                                                    Status: Completed
-                                                </p>
-                                            @endif
+                                                @if($task->status === 'in_progress')
+                                                    <p class="text-md text-justify text-xl">
+                                                        Status: In Progress
+                                                    </p>
+                                                @elseif($task->status === 'completed')
+                                                    <p class="text-md text-justify text-xl" style="color: green;">
+                                                        Status: Completed
+                                                    </p>
+                                                @endif
+                                            </div>
                                         </div>
-                                    </div>
-                                    
+                                        <button type="submit" class="border text-black px-4 py-2 rounded-md">Send Delayed SMS</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

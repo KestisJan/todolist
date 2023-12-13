@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TodoListController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SmsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -43,4 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/tasks/{id}', [TaskController::class, 'destroy'])->name('tasks.destroy');
 });
 
+# Twilio sms route
+Route::get('/sms/send-delayed/{taskId}', [SmsController::class, 'sendDelayedSms'])->name('sms.send-delayed');
+// Route::get('/sms/send-delayed/', [SmsController::class, 'sendDelayedSms'])->name('sms.send-delayed');
 require __DIR__.'/auth.php';
